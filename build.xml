@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="main" xmlns:if="ant:if">
+  <property environment="env" />
+  <property name="json" value="${env.MERGE_TO_MASTER}" />
+  <target name="main" depends="parse-json,merge" />
+  <target name="parse-json">
+    <script language="javascript"> <![CDATA[
+      var jsonStr = project.getProperty("json");
+	  var json = JSON.parse(jsonStr);
+	  if (json[0]) {
+	    var msg = json[0].finalMessage;
+	    project.setProperty("msg", msg);
+	  }
+    ]]></script>
+  </target>
+  <target name="merge" if="msg">
+	<echo message="${msg}" />
+  </target>
+</project>
