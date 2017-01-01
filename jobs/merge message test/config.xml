@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>&lt;span style=&quot;color:#009000&quot;&gt;&lt;img src=&quot;/plugin/groovy-postbuild/images/completed.gif&quot; /&gt; Merged to master in &lt;b&gt;&lt;a href=&quot;...&quot;&gt;769720892235613857&lt;/a&gt;&lt;/b&gt;&lt;/span&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Configure:pp</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.17.2">
+      <doNotScan>false</doNotScan>
+    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <com.cwctravel.hudson.plugins.extended__choice__parameter.ExtendedChoiceParameterDefinition plugin="extended-choice-parameter@0.75">
+          <name>MERGE_TO_MASTER</name>
+          <description></description>
+          <quoteValue>false</quoteValue>
+          <saveJSONParameterToFile>false</saveJSONParameterToFile>
+          <visibleItemCount>5</visibleItemCount>
+          <type>PT_JSON</type>
+          <groovyScript>def user = hudson.model.User.current()
+def lastBuild = currentProject.getLastBuild()
+def lastMerge = lastBuild.getBuildVariables().get(&quot;MERGE_TO_MASTER&quot;, &quot;[]&quot;)
+def jsonEditorOptions = org.boon.Boon.fromJson(/{  
+  &quot;disable_edit_json&quot;:false,
+  &quot;disable_properties&quot;:true,
+  &quot;no_additional_properties&quot;:true,
+  &quot;disable_collapse&quot;:true,
+  &quot;disable_array_add&quot;:false,
+  &quot;disable_array_delete&quot;:false,
+  &quot;disable_array_reorder&quot;:true,
+  &quot;required_by_default&quot;:true,
+  &quot;show_errors&quot;:&quot;always&quot;,
+  &quot;theme&quot;:&quot;bootstrap3&quot;,
+  &quot;iconlib&quot;:&quot;none&quot;,
+  &quot;startval&quot;:$lastMerge,
+  &quot;schema&quot;:{  
+    &quot;title&quot;:&quot;Merge Options&quot;,
+    &quot;type&quot;:&quot;array&quot;,
+    &quot;maxItems&quot;:1,
+    &quot;items&quot;:{  
+      &quot;id&quot;:&quot;merge&quot;,
+      &quot;title&quot;:&quot;Merge to Master&quot;,
+      &quot;headerTemplate&quot;:&quot;Merge to Master&quot;,
+      &quot;type&quot;:&quot;object&quot;,
+      &quot;properties&quot;:{  
+        &quot;message&quot;:{  
+          &quot;title&quot;: &quot;Reviewed Commit Message&quot;,
+          &quot;propertyOrder&quot;:1,
+          &quot;type&quot;:&quot;string&quot;,
+          &quot;format&quot;:&quot;textarea&quot;,
+          &quot;options&quot;:{  
+            &quot;input_height&quot;:&quot;200px&quot;,
+            &quot;input_width&quot;:&quot;80ch&quot;
+          },
+          &quot;pattern&quot;:&quot;^(?=.{1,80}(\n|$))(TA\\d{1,6} )+[A-Z].*[^\\s](\n\n[^\\s](.|\n)*[^\\s])?$&quot;,
+          &quot;description&quot;:&quot;Rules: First line should look like \&quot;TA1234 Add Candy Crush to import dialog\&quot; (max 80 chars). Second line (if any) should be empty, followed by a more elaborate description (any length). Make sure there are no extra new-lines or spaces at the end, as it won&apos;t pass validation.&quot;
+        },
+        &quot;implementedBy&quot;:{  
+          &quot;title&quot;:&quot;Implemented By&quot;,
+          &quot;propertyOrder&quot;:2,
+          &quot;type&quot;:&quot;string&quot;,
+          &quot;pattern&quot;:&quot;^[a-z]{2,3}(&amp;[a-z]{2,3})*$&quot;,
+          &quot;options&quot;:{  
+            &quot;input_width&quot;:&quot;20ch&quot;
+          },
+          &quot;description&quot;:&quot;Rules: One or more initials separated by \&quot;&amp;\&quot; in lower-case.&quot;
+        },
+        &quot;reviewedBy&quot;:{  
+          &quot;title&quot;:&quot;Reviewed By&quot;,
+          &quot;propertyOrder&quot;:3,
+          &quot;type&quot;:&quot;string&quot;,
+          &quot;pattern&quot;:&quot;^[a-z]{2,3}(&amp;[a-z]{2,3})*$&quot;,
+          &quot;options&quot;:{  
+            &quot;input_width&quot;:&quot;20ch&quot;
+          },
+          &quot;description&quot;:&quot;Rules: One or more initials separated by \&quot;&amp;\&quot; in lower-case.&quot;
+        },
+        &quot;mergedBy&quot;:{  
+          &quot;title&quot;:&quot;Merged By&quot;,
+          &quot;propertyOrder&quot;:4,
+          &quot;type&quot;:&quot;string&quot;,
+          &quot;pattern&quot;:&quot;^[a-z]{2,3}(&amp;[a-z]{2,3})*$&quot;,
+          &quot;options&quot;:{  
+            &quot;input_width&quot;:&quot;20ch&quot;
+          },
+          &quot;template&quot;:&quot;$user&quot;
+        }
+      }
+    }
+  }
+}/)</groovyScript>
+          <bindings></bindings>
+          <groovyClasspath></groovyClasspath>
+          <multiSelectDelimiter>,</multiSelectDelimiter>
+          <projectName>merge message test</projectName>
+        </com.cwctravel.hudson.plugins.extended__choice__parameter.ExtendedChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>browser</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>chrome</string>
+              <string>firefox</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition plugin="git-parameter@0.7.1">
+          <name>RELEASE_FROM_BRANCH</name>
+          <description></description>
+          <uuid>9deecde0-eb5c-4c71-b0e0-4e8248f22fae</uuid>
+          <type>PT_BRANCH</type>
+          <branch></branch>
+          <tagFilter>*</tagFilter>
+          <branchFilter>origin/ta.*</branchFilter>
+          <sortMode>NONE</sortMode>
+          <defaultValue></defaultValue>
+          <selectedValue>NONE</selectedValue>
+          <quickFilterEnabled>true</quickFilterEnabled>
+        </net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.NodeParameterDefinition plugin="nodelabelparameter@1.7.2">
+          <name>node</name>
+          <description></description>
+          <allowedSlaves>
+            <string>ALL (no restriction)</string>
+          </allowedSlaves>
+          <defaultSlaves/>
+          <triggerIfResult>multiSelectionDisallowed</triggerIfResult>
+          <allowMultiNodeSelection>false</allowMultiNodeSelection>
+          <triggerConcurrentBuilds>false</triggerConcurrentBuilds>
+          <ignoreOfflineNodes>false</ignoreOfflineNodes>
+          <nodeEligibility class="org.jvnet.jenkins.plugins.nodelabelparameter.node.AllNodeEligibility"/>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.NodeParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/pit3k/jenkins-config.git</url>
+        <credentialsId>5a4873d5-6d16-4619-aec6-7a8f85a966ad</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.5">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.logic.Not" plugin="run-condition@1.0">
+        <condition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition">
+          <arg1>${MERGE_TO_MASTER}</arg1>
+          <arg2>[]</arg2>
+          <ignoreCase>false</ignoreCase>
+        </condition>
+      </runCondition>
+      <conditionalbuilders>
+        <org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder plugin="groovy-postbuild@2.3.1">
+          <script plugin="script-security@1.24">
+            <script>manager.addBadge(&quot;/plugin/groovy-postbuild/images/completed.gif&quot;, &quot;Merge to master&quot;)</script>
+            <sandbox>true</sandbox>
+          </script>
+          <behavior>0</behavior>
+          <runForMatrixParent>false</runForMatrixParent>
+        </org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder>
+        <hudson.tasks.BatchFile>
+          <command>&quot;C:\Program Files (x86)\Jenkins\tools\hudson.tasks.Ant_AntInstallation\ant-1.9.7\bin\ant.bat&quot;</command>
+        </hudson.tasks.BatchFile>
+        <org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder plugin="groovy-postbuild@2.3.1">
+          <script plugin="script-security@1.24">
+            <script>def matcher = manager.getLogMatcher(&apos;.*WINDOWS\\\\TEMP\\\\hudson(.*).bat$&apos;)
+def id = matcher?.matches() ? matcher.group(1) : &apos;???&apos;
+def project = manager.build.getProject()
+project.setDescription(&apos;&lt;span style=&quot;color:#009000&quot;&gt;&lt;img src=&quot;/plugin/groovy-postbuild/images/completed.gif&quot; /&gt; Merged to master in &lt;b&gt;&lt;a href=&quot;...&quot;&gt;&apos; + id + &apos;&lt;/a&gt;&lt;/b&gt;&lt;/span&gt;&apos;)
+project.disable()
+</script>
+            <sandbox>false</sandbox>
+          </script>
+          <behavior>0</behavior>
+          <runForMatrixParent>false</runForMatrixParent>
+        </org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.claim.ClaimPublisher plugin="claim@2.9"/>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.7"/>
+  </buildWrappers>
+</project>

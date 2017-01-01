@@ -1,230 +1,107 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<project>
-  <actions/>
-  <description>&lt;span style=&quot;color:#009000&quot;&gt;&lt;img src=&quot;/plugin/groovy-postbuild/images/completed.gif&quot; /&gt; Merged to master in &lt;b&gt;&lt;a href=&quot;...&quot;&gt;7916866160107398533&lt;/a&gt;&lt;/b&gt;&lt;/span&gt;</description>
-  <keepDependencies>false</keepDependencies>
-  <properties>
-    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.17.2">
-      <doNotScan>false</doNotScan>
-    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <com.cwctravel.hudson.plugins.extended__choice__parameter.ExtendedChoiceParameterDefinition plugin="extended-choice-parameter@0.75">
-          <name>MERGE_TO_MASTER</name>
-          <description></description>
-          <quoteValue>false</quoteValue>
-          <saveJSONParameterToFile>false</saveJSONParameterToFile>
-          <visibleItemCount>5</visibleItemCount>
-          <type>PT_JSON</type>
-          <groovyScript>def lastBuild = currentProject.getLastBuild()
-def lastMerge = lastBuild.getBuildVariables().get(&quot;MERGE_TO_MASTER&quot;, &quot;[]&quot;)
-def jsonEditorOptions = org.boon.Boon.fromJson(/{  
-  &quot;disable_edit_json&quot;:false,
-  &quot;disable_properties&quot;:true,
-  &quot;no_additional_properties&quot;:true,
-  &quot;disable_collapse&quot;:true,
-  &quot;disable_array_add&quot;:false,
-  &quot;disable_array_delete&quot;:false,
-  &quot;disable_array_reorder&quot;:true,
-  &quot;required_by_default&quot;:true,
-  &quot;show_errors&quot;:&quot;always&quot;,
-  &quot;theme&quot;:&quot;bootstrap3&quot;,
-  &quot;iconlib&quot;:&quot;none&quot;,
-  &quot;startval&quot;:$lastMerge,
-  &quot;schema&quot;:{  
-    &quot;title&quot;:&quot;Merge Options&quot;,
-    &quot;type&quot;:&quot;array&quot;,
-    &quot;maxItems&quot;:1,
-    &quot;items&quot;:{  
-      &quot;id&quot;:&quot;merge&quot;,
-      &quot;title&quot;:&quot;Merge to Master&quot;,
-      &quot;headerTemplate&quot;:&quot;Merge to Master&quot;,
-      &quot;type&quot;:&quot;object&quot;,
-      &quot;properties&quot;:{  
-        &quot;message&quot;:{  
-          &quot;title&quot;: &quot;Reviewed Commit Message&quot;,
-          &quot;propertyOrder&quot;:1,
-          &quot;type&quot;:&quot;string&quot;,
-          &quot;format&quot;:&quot;textarea&quot;,
-          &quot;options&quot;:{  
-            &quot;input_height&quot;:&quot;100px&quot;,
-            &quot;input_width&quot;:&quot;80ch&quot;
-          },
-          &quot;pattern&quot;:&quot;^(?=.{1,80}(\n|$))(TA\\d{1,6} )+[A-Z].*[^\\s](\n\n[^\\s](.|\n)*[^\\s])?$&quot;,
-          &quot;description&quot;:&quot;Rules: First line should look like \&quot;TA1234 Add Candy Crush to import dialog\&quot; (max 80 chars). Second line (if any) should be empty, followed by a more elaborate description (any length). Make sure there are no extra new-lines or spaces at the end, as it won&apos;t pass validation.&quot;
-        },
-        &quot;implementedBy&quot;:{  
-          &quot;title&quot;:&quot;Implemented By&quot;,
-          &quot;propertyOrder&quot;:2,
-          &quot;type&quot;:&quot;string&quot;,
-          &quot;pattern&quot;:&quot;^[a-z]{2,3}(&amp;[a-z]{2,3})*$&quot;,
-          &quot;options&quot;:{  
-            &quot;input_width&quot;:&quot;20ch&quot;
-          },
-          &quot;description&quot;:&quot;Rules: One or more initials separated by \&quot;&amp;\&quot; in lower-case.&quot;
-        },
-        &quot;reviewedBy&quot;:{  
-          &quot;title&quot;:&quot;Reviewed By&quot;,
-          &quot;propertyOrder&quot;:3,
-          &quot;type&quot;:&quot;string&quot;,
-          &quot;pattern&quot;:&quot;^[a-z]{2,3}(&amp;[a-z]{2,3})*$&quot;,
-          &quot;options&quot;:{  
-            &quot;input_width&quot;:&quot;20ch&quot;
-          },
-          &quot;description&quot;:&quot;Rules: One or more initials separated by \&quot;&amp;\&quot; in lower-case.&quot;
-        },
-        &quot;finalMessage&quot;:{  
-          &quot;title&quot;:&quot;Final Commit Message&quot;,
-          &quot;propertyOrder&quot;:4,
-          &quot;type&quot;:&quot;string&quot;,
-          &quot;format&quot;:&quot;textarea&quot;,
-          &quot;options&quot;:{  
-            &quot;expand_height&quot;:true,
-            &quot;input_height&quot;:&quot;100px&quot;,
-            &quot;input_width&quot;:&quot;80ch&quot;
-          },
-          &quot;template&quot;:&quot;{{message}}\n\nImplemented by {{implementedBy}}\nReviewed by {{reviewedBy}}&quot;,
-          &quot;watch&quot;:{  
-            &quot;message&quot;:&quot;merge.message&quot;,
-            &quot;implementedBy&quot;:&quot;merge.implementedBy&quot;,
-            &quot;reviewedBy&quot;:&quot;merge.reviewedBy&quot;
-          }
-        }
-      }
-    }
-  }
-}/)</groovyScript>
-          <bindings></bindings>
-          <groovyClasspath></groovyClasspath>
-          <multiSelectDelimiter>,</multiSelectDelimiter>
-          <projectName>merge message test</projectName>
-        </com.cwctravel.hudson.plugins.extended__choice__parameter.ExtendedChoiceParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>browser</name>
-          <description></description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>chrome</string>
-              <string>firefox</string>
-              <string>ie</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
-        <net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition plugin="git-parameter@0.7.1">
-          <name>RELEASE_FROM_BRANCH</name>
-          <description></description>
-          <uuid>2fb033b9-afbb-4bdb-9f30-920dd58082e3</uuid>
-          <type>PT_BRANCH</type>
-          <branch></branch>
-          <tagFilter>*</tagFilter>
-          <branchFilter>origin/ta.*</branchFilter>
-          <sortMode>NONE</sortMode>
-          <defaultValue></defaultValue>
-          <selectedValue>NONE</selectedValue>
-          <quickFilterEnabled>true</quickFilterEnabled>
-        </net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition>
-        <org.jvnet.jenkins.plugins.nodelabelparameter.NodeParameterDefinition plugin="nodelabelparameter@1.7.2">
-          <name>node</name>
-          <description></description>
-          <allowedSlaves>
-            <string>ALL (no restriction)</string>
-          </allowedSlaves>
-          <defaultSlaves/>
-          <triggerIfResult>multiSelectionDisallowed</triggerIfResult>
-          <allowMultiNodeSelection>false</allowMultiNodeSelection>
-          <triggerConcurrentBuilds>false</triggerConcurrentBuilds>
-          <ignoreOfflineNodes>false</ignoreOfflineNodes>
-          <nodeEligibility class="org.jvnet.jenkins.plugins.nodelabelparameter.node.AllNodeEligibility"/>
-        </org.jvnet.jenkins.plugins.nodelabelparameter.NodeParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.1">
-    <configVersion>2</configVersion>
-    <userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/pit3k/jenkins-config.git</url>
-        <credentialsId>5a4873d5-6d16-4619-aec6-7a8f85a966ad</credentialsId>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
-    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <submoduleCfg class="list"/>
-    <extensions/>
-  </scm>
-  <canRoam>true</canRoam>
-  <disabled>false</disabled>
-  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
-  <concurrentBuild>false</concurrentBuild>
-  <builders>
-    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.5">
-      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
-      <runCondition class="org.jenkins_ci.plugins.run_condition.logic.Not" plugin="run-condition@1.0">
-        <condition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition">
-          <arg1>${MERGE_TO_MASTER}</arg1>
-          <arg2>[]</arg2>
-          <ignoreCase>false</ignoreCase>
-        </condition>
-      </runCondition>
-      <conditionalbuilders>
-        <hudson.plugins.groovy.SystemGroovy plugin="groovy@1.30">
-          <scriptSource class="hudson.plugins.groovy.StringScriptSource">
-            <command>import org.jvnet.hudson.plugins.groovypostbuild.*;
-def action = new GroovyPostbuildAction(
-  &quot;/plugin/groovy-postbuild/images/db_in.gif&quot;, &quot;Merge to master&quot;);
-build.addAction(action)
-
-</command>
-          </scriptSource>
-          <bindings></bindings>
-          <classpath></classpath>
-        </hudson.plugins.groovy.SystemGroovy>
-        <hudson.tasks.BatchFile>
-          <command>&quot;C:\Program Files (x86)\Jenkins\tools\hudson.tasks.Ant_AntInstallation\ant-1.9.7\bin\ant.bat&quot;</command>
-        </hudson.tasks.BatchFile>
-      </conditionalbuilders>
-    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
-  </builders>
-  <publishers>
-    <org.jenkins__ci.plugins.flexible__publish.FlexiblePublisher plugin="flexible-publish@0.15.2">
-      <publishers>
-        <org.jenkins__ci.plugins.flexible__publish.ConditionalPublisher>
-          <condition class="org.jenkins_ci.plugins.run_condition.logic.Not" plugin="run-condition@1.0">
-            <condition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition">
-              <arg1>${MERGE_TO_MASTER}</arg1>
-              <arg2>[]</arg2>
-              <ignoreCase>false</ignoreCase>
-            </condition>
-          </condition>
-          <publisherList>
-            <org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder plugin="groovy-postbuild@2.3.1">
-              <script plugin="script-security@1.24">
-                <script>def matcher = manager.getLogMatcher(&apos;.*WINDOWS\\\\TEMP\\\\hudson(.*).bat$&apos;)
-def id = matcher?.matches() ? matcher.group(1) : &apos;???&apos;
-def project = manager.build.getProject()
-project.setDescription(&apos;&lt;span style=&quot;color:#009000&quot;&gt;&lt;img src=&quot;/plugin/groovy-postbuild/images/completed.gif&quot; /&gt; Merged to master in &lt;b&gt;&lt;a href=&quot;...&quot;&gt;&apos; + id + &apos;&lt;/a&gt;&lt;/b&gt;&lt;/span&gt;&apos;)
-project.disable()
-</script>
-                <sandbox>false</sandbox>
-              </script>
-              <behavior>0</behavior>
-              <runForMatrixParent>false</runForMatrixParent>
-            </org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder>
-          </publisherList>
-          <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
-          <executionStrategy class="org.jenkins_ci.plugins.flexible_publish.strategy.FailAtEndExecutionStrategy"/>
-        </org.jenkins__ci.plugins.flexible__publish.ConditionalPublisher>
-      </publishers>
-    </org.jenkins__ci.plugins.flexible__publish.FlexiblePublisher>
-    <hudson.plugins.claim.ClaimPublisher plugin="claim@2.9"/>
-  </publishers>
-  <buildWrappers>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.7"/>
-  </buildWrappers>
-</project>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>2.32.1</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
+    <permission>com.sonyericsson.jenkins.plugins.bfa.PluginImpl.RemoveCause:authenticated</permission>
+    <permission>com.sonyericsson.jenkins.plugins.bfa.PluginImpl.UpdateCauses:authenticated</permission>
+    <permission>com.sonyericsson.jenkins.plugins.bfa.PluginImpl.ViewCauses:authenticated</permission>
+    <permission>hudson.model.Hudson.Administer:admin</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Item.Build:authenticated</permission>
+    <permission>hudson.model.Item.Cancel:authenticated</permission>
+    <permission>hudson.model.Item.Discover:anonymous</permission>
+    <permission>hudson.model.Item.ExtendedRead:anonymous</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Workspace:anonymous</permission>
+    <permission>hudson.model.Run.Update:authenticated</permission>
+    <permission>hudson.model.View.Configure:pp</permission>
+    <permission>hudson.model.View.Create:pp</permission>
+    <permission>hudson.model.View.Delete:pp</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>false</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@1.5">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <description></description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>NGS</name>
+      <description></description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>merge message test</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <com.robestone.hudson.compactcolumns.JobNameColorColumn plugin="compact-columns@1.10">
+          <colorblindHint>nohint</colorblindHint>
+          <showColor>true</showColor>
+          <showDescription>false</showDescription>
+          <showLastBuild>true</showLastBuild>
+        </com.robestone.hudson.compactcolumns.JobNameColorColumn>
+        <com.robestone.hudson.compactcolumns.AllStatusesColumn plugin="compact-columns@1.10">
+          <colorblindHint>nohint</colorblindHint>
+          <timeAgoTypeString>DIFF</timeAgoTypeString>
+          <onlyShowLastStatus>false</onlyShowLastStatus>
+          <hideDays>0</hideDays>
+        </com.robestone.hudson.compactcolumns.AllStatusesColumn>
+        <com.sonyericsson.jenkins.plugins.bfa.model.FailureCauseColumn plugin="build-failure-analyzer@1.17.2">
+          <showText>true</showText>
+        </com.sonyericsson.jenkins.plugins.bfa.model.FailureCauseColumn>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildNodeColumn plugin="extra-columns@1.17"/>
+        <org.jenkinsci.plugins.buildtriggerbadge.LastBuildTriggerColumn plugin="buildtriggerbadge@2.7">
+          <causeDisplayType>iconAndDesc</causeDisplayType>
+        </org.jenkinsci.plugins.buildtriggerbadge.LastBuildTriggerColumn>
+        <jenkins.plugins.extracolumns.DescriptionColumn plugin="extra-columns@1.17">
+          <displayName>false</displayName>
+          <trim>false</trim>
+          <displayLength>1</displayLength>
+          <columnWidth>80</columnWidth>
+          <forceWidth>false</forceWidth>
+        </jenkins.plugins.extracolumns.DescriptionColumn>
+        <hudson.plugins.claim.ClaimColumn plugin="claim@2.9"/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.17"/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+  </views>
+  <primaryView>NGS</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
